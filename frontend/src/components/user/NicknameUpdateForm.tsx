@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'styles/ThemeProvider'
 import styles from './NicknameUpdateForm.module.scss'
@@ -9,13 +9,11 @@ import Button from 'components/common/Button'
 import useAuthInput from 'hooks/useAuthInput'
 
 import { updateNickname } from 'apis/services/users'
+import toast from 'components/common/Toast'
 
 function NicknameUpdateForm() {
   const { theme } = useContext(ThemeContext)
   const navigate = useNavigate()
-
-  // Todo: toast 적용
-  const [errMsg, setErrMsg] = useState('')
 
   // 닉네임 수정
   const {
@@ -29,12 +27,13 @@ function NicknameUpdateForm() {
   const onClickUpdateNickname = () => {
     updateNickname(nickname)
       .then(() => {
+        toast.addMessage('success', '닉네임이 변경되었습니다.')
         navigate('/profile')
         // Todo: Query invalidate 처리
       })
       .catch((err) => {
         if (err.status === 400) {
-          setErrMsg(err.data.message)
+          toast.addMessage('error', err.data.message)
         }
       })
   }
@@ -48,7 +47,6 @@ function NicknameUpdateForm() {
         onClick={() => navigate('/profile')}
       />
 
-      <span className={styles.err}>{errMsg}</span>
       <LabelInput
         label="닉네임"
         value={nickname}
