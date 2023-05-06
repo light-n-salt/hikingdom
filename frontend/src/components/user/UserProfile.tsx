@@ -15,6 +15,8 @@ import mountain from 'assets/images/mountain.png'
 
 import { BiEdit } from 'react-icons/bi'
 
+import { logout } from 'apis/services/users'
+
 // import { UserRecord } from 'types/user.interface'
 
 // type UserProfileProps = {
@@ -43,6 +45,11 @@ export default function UserProfile() {
   const nickname = '이병호리병'
   const email = '조혜진진자라@gamil.com'
 
+  const onClickLogout = () => {
+    logout()
+    navigate('/')
+  }
+
   return (
     <div className={styles.profile}>
       {isOpen && (
@@ -59,7 +66,7 @@ export default function UserProfile() {
             text={'로그아웃'}
             size={'sm'}
             color={'secondary'}
-            onClick={() => console.log('로그아웃')}
+            onClick={onClickLogout}
           />
 
           <IconButton

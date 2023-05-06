@@ -38,6 +38,13 @@ export function login(email: string, password: string) {
     })
 }
 
+export function logout() {
+  return apiRequest.post(`/members/logout`).then(() => {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
+  })
+}
+
 // PUT request
 export function findPw(email: string) {
   return apiRequest.put(`/members/auth/password-find`, {
