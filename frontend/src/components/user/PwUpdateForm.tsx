@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { ThemeContext } from 'styles/ThemeProvider'
 import styles from './PwUpdateForm.module.scss'
 import { useNavigate } from 'react-router-dom'
@@ -10,12 +10,11 @@ import useAuthInput from 'hooks/useAuthInput'
 import useCheckPw from 'hooks/useCheckPw'
 
 import { updatePw } from 'apis/services/users'
+import toast from 'components/common/Toast'
 
 function PwUpdateForm() {
   const { theme } = useContext(ThemeContext)
   const navigate = useNavigate()
-  // Todo: toast 적용
-  const [pwErr, setPwErr] = useState('')
 
   // 비밀번호 변경
   const {
@@ -42,18 +41,18 @@ function PwUpdateForm() {
   const onClickUpdatePw = () => {
     updatePw(password, newPassword, checkPassword)
       .then(() => {
+        toast.addMessage('success', '비밀번호가 변경되었습니다.')
         navigate('/profile')
       })
       .catch((err) => {
         if (err.status === 401) {
-          setPwErr('현재 비밀번호가 일치하지 않습니다.')
+          toast.addMessage('error', '비밀번호가 일치하지 않습니다.')
         }
       })
   }
 
   return (
     <div className={`content ${theme} ${styles.password}`}>
-      <span className={styles.err}>{pwErr}</span>
       <LabelInput
         label="현재 비밀번호"
         value={password}
