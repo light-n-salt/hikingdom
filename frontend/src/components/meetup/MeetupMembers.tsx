@@ -13,17 +13,19 @@ type MeetupMembersProps = {
 
 function MeetupMembers({ memberInfo }: MeetupMembersProps) {
   const [isOpen, setIsOpen] = useState(false)
-  
+
   return (
     <>
       {isOpen && (
         <Modal onClick={() => setIsOpen(false)}>
-          <MemberModal/>
+          <MemberModal />
         </Modal>
       )}
       <div className={styles.meetup}>
         <div className={styles.titles}>
-          <span className={styles.title}>참여 멤버 (N명)</span>
+          <span className={styles.title}>
+            참여 멤버 ({memberInfo.length}명)
+          </span>
           <Button text="참여" color="primary" size="xs" />
         </div>
         <div className={styles.members}>
@@ -35,7 +37,9 @@ function MeetupMembers({ memberInfo }: MeetupMembersProps) {
               isSquare={true}
             />
           ))}
-          <div className={styles.more} onClick={() => setIsOpen(true)}>+</div>
+          <div className={styles.more} onClick={() => setIsOpen(true)}>
+            +
+          </div>
         </div>
       </div>
     </>

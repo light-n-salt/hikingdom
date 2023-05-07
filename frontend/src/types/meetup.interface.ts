@@ -11,7 +11,7 @@ export interface MeetupInfo {
   meetupId: number
   meetupName: string
   mountainName: string
-  startDate: string
+  startAt: string
   startTime: string
   description: string
   totalMmember: number
@@ -41,7 +41,7 @@ export interface MeetupReview {
 
 // 상세 일정 조회
 export interface meetupInfoDetail extends MeetupInfo {
-  isJoin: boolean
+  join: boolean
   memberInfo: MeetupMember[]
   photoInfo: Album[]
   reviewInfo: MeetupReview[]

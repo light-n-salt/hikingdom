@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from 'styles/ThemeProvider'
 import styles from './MeetupDetailPage.module.scss'
 
@@ -13,118 +13,45 @@ import TextSendBar from 'components/common/TextSendBar'
 
 import { meetupInfoDetail } from 'types/meetup.interface'
 
+import { getMeetupDetail } from 'apis/services/meetup'
+
 function MeetupDetailPage() {
   const { theme } = useContext(ThemeContext)
+  const [meetup, setMeetup] = useState<meetupInfoDetail>()
 
-  const info: meetupInfoDetail = {
-    meetupHostId: 0,
-    meetupId: 0,
-    meetupName: 'string',
-    mountainName: 'string',
-    startDate: 'string',
-    startTime: 'string',
-    description: 'string',
-    totalMmember: 10,
-    isJoin: true,
-    memberInfo: [
-      {
-        memberId: 0,
-        profileUrl:
-          'https://i.namu.wiki/i/ZeGGZBUYHmppb5RTym8vJmnQulv-UhJygvrUMH_qXurQ08oZzRshu2sToDMet1NFeq4iwnkqY69Y_pKH4C2lmg.webp',
-      },
-      {
-        memberId: 1,
-        profileUrl:
-          'https://i.namu.wiki/i/ZeGGZBUYHmppb5RTym8vJmnQulv-UhJygvrUMH_qXurQ08oZzRshu2sToDMet1NFeq4iwnkqY69Y_pKH4C2lmg.webp',
-      },
-      {
-        memberId: 2,
-        profileUrl:
-          'https://i.namu.wiki/i/ZeGGZBUYHmppb5RTym8vJmnQulv-UhJygvrUMH_qXurQ08oZzRshu2sToDMet1NFeq4iwnkqY69Y_pKH4C2lmg.webp',
-      },
-      {
-        memberId: 3,
-        profileUrl:
-          'https://i.namu.wiki/i/IMJTGYaO0v6OYa5iro8bLfHuxdiXflvRQ4BdsMVOEvhFP2VBF74QAdMc4PFs-dJcYu-b9aRFeEnajUO1nDQeDg.webp',
-      },
-      {
-        memberId: 4,
-        profileUrl:
-          'https://i.namu.wiki/i/IMJTGYaO0v6OYa5iro8bLfHuxdiXflvRQ4BdsMVOEvhFP2VBF74QAdMc4PFs-dJcYu-b9aRFeEnajUO1nDQeDg.webp',
-      },
-      {
-        memberId: 5,
-        profileUrl:
-          'https://i.namu.wiki/i/IMJTGYaO0v6OYa5iro8bLfHuxdiXflvRQ4BdsMVOEvhFP2VBF74QAdMc4PFs-dJcYu-b9aRFeEnajUO1nDQeDg.webp',
-      },
-    ],
-    photoInfo: [
-      {
-        photoId: 0,
-        memberId: 0,
-        imgUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-        createdAt: 'YYYY:MM:DD HH:mm:ss',
-      },
-      {
-        photoId: 1,
-        memberId: 1,
-        imgUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-        createdAt: 'YYYY:MM:DD HH:mm:ss',
-      },
-      {
-        photoId: 2,
-        memberId: 2,
-        imgUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-        createdAt: 'YYYY:MM:DD HH:mm:ss',
-      },
-      // {
-      //   photoId: 3,
-      //   memberId: 3,
-      //   imgUrl:
-      //     'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-      //   createdAt: 'YYYY:MM:DD HH:mm:ss',
-      // },
-    ],
-    reviewInfo: [
-      {
-        memberId: 0,
-        nickname: '조혜진진자라',
-        profileUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-        reviewId: 0,
-        content:
-          '짱짱너무재밌어요짱짱너무재밌어요짱짱너무재밌어요짱짱너무재밌어요짱짱너무재밌어요짱짱너무재밌어요짱짱너무재밌어요짱짱너무재밌어요',
-      },
-      {
-        memberId: 1,
-        nickname: '정예지렁이',
-        profileUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-        reviewId: 1,
-        content: '짱짱',
-      },
-    ],
-  }
+  useEffect(() => {
+    getMeetupDetail(1, 1)
+      .then((res) => {
+        console.log(res.data.result)
+        setMeetup(res.data.result)
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
-  return (
+  return meetup ? (
     <div className={`page p-sm ${theme} ${styles.page}`}>
       <Button text="수정" color="secondary" size="xs" />
-      <PageHeader title="일정 제목" url="/club/meetup" color="primary" />
-      <MeetupDetail mountain="도봉산" date="2023.04.30" time="14:00" />
+      <PageHeader
+        title={meetup?.meetupName}
+        url="/club/meetup"
+        color="primary"
+      />
+      <MeetupDetail
+        mountain={meetup?.mountainName}
+        date={meetup?.startAt.split('T')[0]}
+        time={meetup?.startAt?.split('T')[1]}
+      />
       <div className={`page ${theme} ${styles.content}`}>
         <div className={styles.intro}>
-          <MeetupIntroduction content={'마리아~ 산타마리아'} />
+          <MeetupIntroduction content={meetup?.description} />
         </div>
-        <MeetupMembers memberInfo={info.memberInfo} />
-        <MeetupAlbum photoInfo={info.photoInfo} />
-        <MeetupReviewList reviewInfo={info.reviewInfo} />
+        <MeetupMembers memberInfo={meetup?.memberInfo} />
+        <MeetupAlbum photoInfo={meetup?.photoInfo} />
+        <MeetupReviewList reviewInfo={meetup?.reviewInfo} />
       </div>
       <TextSendBar placeholder="후기를 입력해주세요" />
     </div>
-  )
+  ) : null
 }
 
 export default MeetupDetailPage
