@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hikingdom">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />      <!-- 네트워크와 GPS를 이용 -> 더 정확한 위치 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />    <!--네트워크(와이파이, 3G, 4G 등)만을 이용해서 단말기 위치를 식별-->
+<!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>-->
+<!--    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>-->
+<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />      &lt;!&ndash; 네트워크와 GPS를 이용 -> 더 정확한 위치 &ndash;&gt;-->
+<!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />    &lt;!&ndash;네트워크(와이파이, 3G, 4G 등)만을 이용해서 단말기 위치를 식별&ndash;&gt;-->
 
     <application
         android:name="com.example.hikingdom.ApplicationClass"
@@ -29,26 +29,26 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.example.hikingdom.ui.login.LoginActivity"
-            android:exported="true"/>
+<!--        <activity-->
+<!--            android:name="com.example.hikingdom.ui.login.LoginActivity"-->
+<!--            android:exported="true"/>-->
 
-        <activity
-            android:name="com.example.hikingdom.ui.siginup.SignUpActivity"
-            android:exported="true"/>
+<!--        <activity-->
+<!--            android:name="com.example.hikingdom.ui.siginup.SignUpActivity"-->
+<!--            android:exported="true"/>-->
 
         <activity
             android:name="com.example.hikingdom.ui.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing"/><!--MainActivity 내의 Fragment에서 검색 시 하단바가 키보드 위에 올라오지 않도록, 키보드가 레이아웃에 영향을 주지 않게 처리 -->
 
-        <service
-            android:name=".ui.main.hiking.LocationService"
-            android:foregroundServiceType="location"/>
+<!--        <service-->
+<!--            android:name=".ui.main.hiking.LocationService"-->
+<!--            android:foregroundServiceType="location"/>-->
 
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="${KAKAOMAP_NATIVE_APP_KEY}"/>
+<!--        <meta-data-->
+<!--            android:name="com.kakao.sdk.AppKey"-->
+<!--            android:value="${KAKAOMAP_NATIVE_APP_KEY}"/>-->
     </application>
 
 </manifest>

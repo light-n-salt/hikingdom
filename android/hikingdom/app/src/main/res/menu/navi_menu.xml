@@ -4,24 +4,24 @@
         android:enabled="true"
         android:icon="@drawable/navi_home_selector"
         android:title="@string/menu_home" />
-    <item
-        android:id="@+id/menu_rankingFragment"
-        android:enabled="true"
-        android:icon="@drawable/navi_ranking_selector"
-        android:title="@string/menu_ranking" />
-    <item
-        android:id="@+id/menu_hikingFragment"
-        android:enabled="true"
-        android:title="@string/menu_hiking"
-        android:icon="@drawable/navi_hiking_selector"/>
-    <item
-        android:id="@+id/menu_groupFragment"
-        android:enabled="true"
-        android:icon="@drawable/navi_group_selector"
-        android:title="@string/menu_group" />
-    <item
-        android:id="@+id/menu_myPageFragment"
-        android:enabled="true"
-        android:icon="@drawable/ic_mypage"
-        android:title="@string/menu_mypage" />
+<!--    <item-->
+<!--        android:id="@+id/menu_rankingFragment"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/navi_ranking_selector"-->
+<!--        android:title="@string/menu_ranking" />-->
+<!--    <item-->
+<!--        android:id="@+id/menu_hikingFragment"-->
+<!--        android:enabled="true"-->
+<!--        android:title="@string/menu_hiking"-->
+<!--        android:icon="@drawable/navi_hiking_selector"/>-->
+<!--    <item-->
+<!--        android:id="@+id/menu_groupFragment"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/navi_group_selector"-->
+<!--        android:title="@string/menu_group" />-->
+<!--    <item-->
+<!--        android:id="@+id/menu_myPageFragment"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_mypage"-->
+<!--        android:title="@string/menu_mypage" />-->
 </menu>
