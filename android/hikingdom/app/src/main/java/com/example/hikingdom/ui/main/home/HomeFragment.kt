@@ -21,6 +21,7 @@ class HomeFragment(): BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inf
         webView.webViewClient = WebViewClient()
         webView.loadUrl(HOME_WEB_URL)
         webView.settings.javaScriptEnabled = true
+        webView.settings.domStorageEnabled = true
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
