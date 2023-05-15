@@ -100,9 +100,16 @@ ext {
     set('snippetsDir', file("build/generated-snippets"))
 }
 
-tasks.named('asciidoctor') {
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
+
+    attributes('snippets': snippetsDir)
 }
 
 asciidoctor.doFirst {
@@ -110,7 +117,7 @@ asciidoctor.doFirst {
 }
 
 tasks.register("copyDocument", Copy) {
-    dependsOn("asciidoctor")
+    dependsOn asciidoctor
     from(file("build/docs/asciidoc"))
     into(file("src/main/resources/static/docs"))
 }
@@ -134,4 +141,4 @@ build {
 }
 
 // kotlin 에러 해결
-tasks.register("prepareKotlinBuildScriptModel"){}
+tasks.register("prepareKotlinBuildScriptModel") {}
