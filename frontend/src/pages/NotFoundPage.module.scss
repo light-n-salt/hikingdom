@@ -2,8 +2,9 @@
 @use 'src/styles/z-index' as *;
 
 .page {
-  background-color: #0b0c10;
-  background-image: linear-gradient(to bottom, #0b0c10, #1f2833);
+  // background-color: #0b0c10;
+  // background-image: linear-gradient(to bottom, #0b0c10, #1f2833);
+  background: linear-gradient(to bottom, #c7e8f3, #88ccee);
 }
 
 .content {
