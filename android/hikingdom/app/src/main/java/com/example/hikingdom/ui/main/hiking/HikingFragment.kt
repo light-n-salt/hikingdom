@@ -27,12 +27,12 @@ import com.example.hikingdom.R
 import com.example.hikingdom.data.local.AppDatabase
 import com.example.hikingdom.data.remote.api.RetrofitTokenInstance
 import com.example.hikingdom.data.remote.hiking.HikingRetrofitInterface
-import com.example.hikingdom.data.remote.hiking.Mountain
-import com.example.hikingdom.data.remote.hiking.MountainResponse
+//import com.example.hikingdom.data.remote.hiking.Mountain
+//import com.example.hikingdom.data.remote.hiking.MountainResponse
 import com.example.hikingdom.databinding.FragmentHikingBinding
 import com.example.hikingdom.ui.BaseFragment
-import com.example.hikingdom.ui.main.hiking.dialog.MountainAdapter
-import com.example.hikingdom.ui.main.hiking.dialog.MountainViewModel
+//import com.example.hikingdom.ui.main.hiking.dialog.MountainAdapter
+//import com.example.hikingdom.ui.main.hiking.dialog.MountainViewModel
 import com.example.hikingdom.utils.*
 import net.daum.mf.map.api.*
 import retrofit2.Call
@@ -80,30 +80,7 @@ class HikingFragment(): BaseFragment<FragmentHikingBinding>(FragmentHikingBindin
 
         checkPermission()
 
-        // 다이얼로그창 띄우기
-        val mountainView = LayoutInflater.from(activityContext).inflate(R.layout.dialog_mountain, null)
-        val mBuilder = AlertDialog.Builder(activityContext)
-            .setView(mountainView)
-            .setTitle("가까운 산")
-        val moutainDialog = mBuilder.show()
-
-        // 데이터 불러오기
-        val api = RetrofitTokenInstance.getInstance().create(HikingRetrofitInterface::class.java)
-        api.getNearMountains(37.4328f, 126.9965f).enqueue(object: Callback<MountainResponse> {
-            override fun onResponse(call: Call<MountainResponse>, response: Response<MountainResponse>) {
-                Log.d("user!", "${response.body()}")
-                val rv = moutainDialog.findViewById<RecyclerView>(R.id.mountain_rv)
-                val mountainAdapter = MountainAdapter(activityContext, response.body()!!.result)
-                rv.adapter = mountainAdapter
-                rv.layoutManager = LinearLayoutManager(activityContext)
-            }
-            override fun onFailure(call: Call<MountainResponse>, t: Throwable) {
-                Log.d("user!", "fail")
-            }
-        })
-
     }
-
 
     companion object {
         fun newInstance(): HikingFragment = HikingFragment()
@@ -326,8 +303,8 @@ class HikingFragment(): BaseFragment<FragmentHikingBinding>(FragmentHikingBindin
         ) {
 //            Log.d("askForLocationPermission", "조건문 true")
             AlertDialog.Builder(this.requireContext())
-                .setTitle("위치 권한 설정")
-                .setMessage("경로 기록 서비스를 이용하려면 위치 권한을 허용해주세요.")
+                .setTitle("백그라운드 위치 권한 설정")
+                .setMessage("경로 기록 서비스를 이용하려면 백그라운드 위치 권한을 허용해야 합니다.")
                 .setPositiveButton("허용",
                     DialogInterface.OnClickListener { dialog, which ->
                         ActivityCompat.requestPermissions(

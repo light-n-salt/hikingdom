@@ -12,9 +12,9 @@ interface HikingRetrofitInterface {
     @POST("hiking")
     fun saveHikingRecourd(@Body saveHikingRecordReq: SaveHikingRecordReq): Call<BaseRes>
 
-    @GET("info/mountains/location")
-    fun getNearMountains(@Query("lat") lat: Float,  @Query("lng") lng: Float): Call<MountainResponse>
-
-    @GET("hiking/meetups")
-    fun getTodayMeetups(): Call<MeetupResponse>
+//    @GET("info/mountains/location")
+//    fun getNearMountains(@Query("lat") lat: Float,  @Query("lng") lng: Float): Call<MountainResponse>
+//
+//    @GET("hiking/meetups")
+//    fun getTodayMeetups(): Call<MeetupResponse>
 }

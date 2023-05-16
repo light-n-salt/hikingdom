@@ -3,7 +3,6 @@
     android:id="@+id/mountain_list_item"
     android:layout_width="match_parent"
     android:layout_height="130sp"
-    android:background="@drawable/radius"
     android:gravity="center"
     android:orientation="vertical">
 
