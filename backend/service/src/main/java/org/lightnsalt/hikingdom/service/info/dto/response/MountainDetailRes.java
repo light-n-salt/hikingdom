@@ -21,7 +21,10 @@ public class MountainDetailRes {
 	private String address;
 	private String imgUrl;
 	private double maxAlt;
+	private double topLat;
+	private double topLng;
 	private String peaks;
+	private String checkPeak;
 	private int totalDuration;
 	private List<AssetMountainRes> assets;
 
@@ -32,7 +35,10 @@ public class MountainDetailRes {
 		this.address = mountainInfo.getAddress();
 		this.imgUrl = mountainInfo.getImgUrl();
 		this.maxAlt = mountainInfo.getTopAlt();
+		this.topLat = mountainInfo.getTopLat();
+		this.topLng = mountainInfo.getTopLng();
 		this.peaks = mountainInfo.getPeaks();
+		this.checkPeak = mountainInfo.getCheckPeak();
 		this.totalDuration = mountainInfo.getTotalDuration();
 		this.assets = mountainInfo.getAsset().stream().map(AssetMountainRes::new).collect(Collectors.toList());
 		this.totalDuration = mountainInfo.getTotalDuration();
