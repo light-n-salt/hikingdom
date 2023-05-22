@@ -88,28 +88,30 @@ public class MeetupAlbumServiceImpl implements MeetupAlbumService {
 	public CustomSlice<MeetupAlbumRes> findMeetupAlbumList(String email, Long clubId, Long meetupId, Long photoId,
 		Pageable pageable) {
 		// 회원 정보 가져오기
-		final Member member = memberRepository.findByEmail(email)
-			.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED));
+		final Long memberId = memberRepository.findByEmail(email)
+			.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED)).getId();
 		// 사진 정보 가져오기
 		Slice<MeetupAlbum> list = meetupRepositoryCustom.findPhotos(photoId, meetupId, pageable);
 
 		// 형 변환
 		return new CustomSlice<>(
-			list.map(meetupAlbum -> new MeetupAlbumRes(meetupAlbum, member)));
+			list.map(meetupAlbum -> new MeetupAlbumRes(meetupAlbum, memberId)));
 	}
 
 	@Override
 	@Transactional
 	public void removeMeetupAlbum(String email, Long clubId, Long meetupId, Long photoId) {
 		// 사진을 올린 사용자인지 확인
-		final boolean isMemberExists = memberRepository.existsByEmail(email);
-		if (!isMemberExists) {
-			throw new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED);
-		}
+		final Long memberId = memberRepository.findByEmail(email)
+			.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED)).getId();
+
 		// 사진이 존재하는지 확인
-		final boolean isAlbumExists = meetupAlbumRepository.existsById(photoId);
-		if (!isAlbumExists) {
-			throw new GlobalException(ErrorCode.PHOTO_NOT_FOUND);
+		final MeetupAlbum album = meetupAlbumRepository.findById(photoId)
+			.orElseThrow(() -> new GlobalException(ErrorCode.PHOTO_NOT_FOUND));
+
+		// 사진을 올리지 않은 사람이 삭제 요청을 하면 인증자격 유효 X
+		if (!album.getMember().getId().equals(memberId)) {
+			throw new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED);
 		}
 
 		meetupAlbumRepository.deleteById(photoId);
