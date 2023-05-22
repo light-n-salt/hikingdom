@@ -85,7 +85,8 @@ public enum ErrorCode {
 	ASSET_NOT_FOUND(404, "A001", "Asset이 존재하지 않습니다"),
 
 	// report related error codes
-	ALREADY_REPORTED(400, "R001", "이미 신고되었습니다");
+	ALREADY_REPORTED(400, "R001", "이미 신고되었습니다"),
+	SAME_REPORTER_AND_REPORTED(400, "R002", "본인을 신고할 수 없습니다");
 
 	private final int status;
 	private final String code;
