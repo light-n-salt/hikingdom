@@ -44,12 +44,11 @@ public class MemberAuthServiceImpl implements MemberAuthService {
 
 		// save FCM token
 		String fcmToken = memberLoginReq.getFcmToken();
-		if (fcmToken != null && fcmToken.length() > 0) {
-			if (!memberFcmTokenRepository.existsByMemberIdAndBody(member.getId(), fcmToken)) {
-				MemberFcmToken memberFcmToken = MemberFcmToken.builder().member(member).body(fcmToken).build();
+		if (fcmToken != null && fcmToken.length() > 0 &&
+			!memberFcmTokenRepository.existsByMemberIdAndBody(member.getId(), fcmToken)) {
+			MemberFcmToken memberFcmToken = MemberFcmToken.builder().member(member).body(fcmToken).build();
 
-				memberFcmTokenRepository.save(memberFcmToken);
-			}
+			memberFcmTokenRepository.save(memberFcmToken);
 		}
 
 		String accessToken = jwtTokenUtil.createAccessToken(email, member.getRole());
