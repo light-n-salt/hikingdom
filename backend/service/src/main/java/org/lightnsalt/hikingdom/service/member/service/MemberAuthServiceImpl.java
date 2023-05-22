@@ -75,11 +75,8 @@ public class MemberAuthServiceImpl implements MemberAuthService {
 			.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED));
 
 		String accessToken = jwtTokenUtil.createAccessToken(email, member.getRole());
-		// String refreshToken = jwtTokenUtil.createRefreshToken(email, member.getRole());
-
-		// redisUtil.deleteValue("RT" + email);
-		// redisUtil.setValueWithExpiration("RT" + email, refreshToken.substring(7), jwtTokenUtil.refreshExpiration);
-
+		
+		// refresh token은 재발급하지 않음. Android/Frontend 동기화 위해
 		return MemberTokenRes.builder().accessToken(accessToken).refreshToken("Bearer " + oldRefreshToken).build();
 	}
 }
