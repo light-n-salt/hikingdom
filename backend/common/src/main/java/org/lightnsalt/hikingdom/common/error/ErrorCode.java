@@ -53,6 +53,7 @@ public enum ErrorCode {
 	MEETUP_ALREADY_DONE(400, "MU005", "이미 지나간 일정입니다"),
 	MEETUP_NOT_JOINED(400, "MU006", "참여한 일정이 아닙니다"),
 	MEETUP_START_AT_INVALID(400, "MU007", "이미 지나간 날짜에 일정을 생성할 수 없습니다"),
+	MEETUP_IS_HOST(400, "MU008", "자신이 생성한 일정은 참여 취소할 수 없습니다"),
 
 	// meetup photo related error codes
 	FAIL_TO_SAVE_PHOTO(500, "MP001", "사진 저장에 실패했습니다"),
