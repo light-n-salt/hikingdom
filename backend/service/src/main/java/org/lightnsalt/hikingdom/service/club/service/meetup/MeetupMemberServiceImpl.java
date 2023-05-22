@@ -57,10 +57,15 @@ public class MeetupMemberServiceImpl implements MeetupMemberService {
 	public void removeJoinMeetup(String email, Long clubId, Long meetupId) {
 		final Member member = memberRepository.findByEmail(email)
 			.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_UNAUTHORIZED));
-		final MeetupMember meetupMember = meetupMemberRepository.findByMeetupIdAndMemberId(meetupId,
-			member.getId()).orElseThrow(() -> new GlobalException(ErrorCode.MEETUP_NOT_JOINED));
 		final Meetup meetup = meetupRepository.findById(meetupId)
 			.orElseThrow(() -> new GlobalException(ErrorCode.MEETUP_NOT_FOUND));
+
+		// 사용자가 생성한 일정인 경우, 참여취소 불가
+		if (meetup.getHost().equals(member))
+			throw new GlobalException(ErrorCode.MEETUP_IS_HOST);
+
+		final MeetupMember meetupMember = meetupMemberRepository.findByMeetupIdAndMemberId(meetupId,
+			member.getId()).orElseThrow(() -> new GlobalException(ErrorCode.MEETUP_NOT_JOINED));
 
 		if (meetup.getStartAt().isBefore(LocalDateTime.now()))
 			throw new GlobalException(ErrorCode.MEETUP_ALREADY_DONE);

@@ -6,6 +6,8 @@ import org.lightnsalt.hikingdom.domain.entity.member.Member;
 import org.lightnsalt.hikingdom.domain.entity.member.MemberHikingStatistic;
 import org.lightnsalt.hikingdom.service.hiking.dto.response.HikingRecordRes;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,8 @@ public class MemberProfileRes {
 	private String nickname;
 	private Long level;
 	private String profileUrl;
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Integer unreadNotificationCount;
 	private Long totalHikingCount;
 	private Long totalMountainCount;
 	private Long totalDuration;
@@ -26,11 +30,12 @@ public class MemberProfileRes {
 	private List<HikingRecordRes> hikingRecords;
 
 	public MemberProfileRes(Member member, MemberHikingStatistic hikingStatistic,
-		List<HikingRecordRes> recordResList) {
+		List<HikingRecordRes> recordResList, Integer unreadAlarmCount) {
 		this.email = member.getEmail();
 		this.nickname = member.getNickname();
 		this.level = Long.valueOf(member.getLevel().getId());
 		this.profileUrl = member.getProfileUrl();
+		this.unreadNotificationCount = unreadAlarmCount;
 		this.totalHikingCount = hikingStatistic.getTotalHikingCount();
 		this.totalMountainCount = hikingStatistic.getTotalMountainCount();
 		this.totalDuration = hikingStatistic.getTotalDuration();

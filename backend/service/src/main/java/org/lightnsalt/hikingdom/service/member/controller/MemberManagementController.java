@@ -103,16 +103,14 @@ public class MemberManagementController {
 	}
 
 	@GetMapping("{nickname}")
-	public ResponseEntity<CustomResponseBody> profileDetail(@PathVariable String nickname,
-		@PageableDefault(value = 3) Pageable pageable) {
-
-		MemberProfileRes result = memberManagementService.findProfile(nickname, pageable);
+	public ResponseEntity<CustomResponseBody> profileDetail(Authentication authentication,
+		@PathVariable String nickname, @PageableDefault(value = 3) Pageable pageable) {
+		MemberProfileRes result = memberManagementService.findProfile(authentication.getName(), nickname, pageable);
 		return new ResponseEntity<>(BaseResponseBody.of("회원 프로필 조회에 성공했습니다", result), HttpStatus.OK);
 	}
 
 	@GetMapping("/clubs/my-requests")
 	public ResponseEntity<CustomResponseBody> requestClubList(Authentication authentication) {
-
 		List<MemberRequestClubRes> result = memberManagementService.findRequestClub(authentication.getName());
 		return new ResponseEntity<>(BaseResponseBody.of("가입 대기중인 모임 조회에 성공했습니다", result), HttpStatus.OK);
 	}
