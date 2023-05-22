@@ -81,7 +81,11 @@ public enum ErrorCode {
 	MEMBER_HAS_NO_CLUBS(404, "CM001", "사용자가 속한 소모임이 없습니다"),
 
 	// asset related error codes
-	ASSET_NOT_FOUND(404, "A001", "Asset이 존재하지 않습니다");
+	ASSET_NOT_FOUND(404, "A001", "Asset이 존재하지 않습니다"),
+
+	// report related error codes
+	ALREADY_REPORTED(400, "R001", "이미 신고되었습니다");
+
 	private final int status;
 	private final String code;
 	private final String message;
