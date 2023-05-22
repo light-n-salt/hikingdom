@@ -53,11 +53,11 @@ public class ClubAsset extends BaseTimeEntity {
 	@JoinColumn(name = "meetup_id", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private Meetup meetup;
 
-	@Column(name = "row_index", nullable = false, columnDefinition = "SMALLINT UNSIGNED")
-	private int rowIndex;
+	@Column(name = "row_index", nullable = false)
+	private double rowIndex;
 
-	@Column(name = "col_index", nullable = false, columnDefinition = "SMALLINT UNSIGNED")
-	private int colIndex;
+	@Column(name = "col_index", nullable = false)
+	private double colIndex;
 
 	@Builder
 	public ClubAsset(Club club, AssetInfo asset, Meetup meetup, int rowIndex, int colIndex) {

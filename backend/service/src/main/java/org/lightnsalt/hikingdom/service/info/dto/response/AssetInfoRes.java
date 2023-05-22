@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AssetInfoRes {
 	private String assetUrl;
-	private int row;
-	private int column;
+	private double row;
+	private double column;
 
 	public AssetInfoRes(ClubAsset clubAsset) {
 		this.assetUrl = clubAsset.getAsset().getAssetUrl();
