@@ -61,6 +61,10 @@ public class MemberReportServiceImpl implements MemberReportService {
 				throw new GlobalException(ErrorCode.INVALID_INPUT_VALUE);
 		}
 
+		// 신고자가 신고할 사람과 같은지 확인
+		if (reporter.equals(reported))
+			throw new GlobalException(ErrorCode.SAME_REPORTER_AND_REPORTED);
+
 		// 이미 신고된 내역인지 확인
 		if (memberReportRepository.existsByReportTypeAndReporterIdAndReportedId(req.getType(), reporter.getId(),
 			reported.getId()))
