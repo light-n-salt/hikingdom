@@ -1,18 +1,19 @@
 package org.lightnsalt.hikingdom.service.notification.repository;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
-import org.lightnsalt.hikingdom.domain.entity.notification.Notification;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
-import org.springframework.stereotype.Repository;
-import org.springframework.data.domain.Pageable;
+import static org.lightnsalt.hikingdom.domain.entity.notification.QNotification.*;
 
 import java.util.List;
 
-import static org.lightnsalt.hikingdom.domain.entity.hiking.QMemberHiking.memberHiking;
-import static org.lightnsalt.hikingdom.domain.entity.notification.QNotification.notification;
+import org.lightnsalt.hikingdom.domain.entity.notification.Notification;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
+import org.springframework.stereotype.Repository;
+
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
