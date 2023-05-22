@@ -56,6 +56,9 @@ public class ClubAsset extends BaseTimeEntity {
 	@Column(name = "row_index", nullable = false)
 	private double rowIndex;
 
+	@Column(name = "cur_number")
+	private int curNumber;
+
 	@Column(name = "col_index", nullable = false)
 	private double colIndex;
 
