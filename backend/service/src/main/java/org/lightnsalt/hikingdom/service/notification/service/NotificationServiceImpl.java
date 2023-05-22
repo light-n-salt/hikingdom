@@ -1,7 +1,5 @@
 package org.lightnsalt.hikingdom.service.notification.service;
 
-import java.time.format.DateTimeFormatter;
-
 import org.lightnsalt.hikingdom.common.dto.CustomSlice;
 import org.lightnsalt.hikingdom.common.error.ErrorCode;
 import org.lightnsalt.hikingdom.common.error.GlobalException;
@@ -32,14 +30,8 @@ public class NotificationServiceImpl implements NotificationService {
     @Transactional
     @Override
     public Long addNotification(NotificationAddReq notificationAddReq) {
-        Notification notification = Notification.builder()
-                .member(notificationAddReq.getMember())
-                .title(notificationAddReq.getTitle())
-                .body(notificationAddReq.getBody())
-                .sendAt(notificationAddReq.getSendAt())
-                .url(notificationAddReq.getUrl())
-                .isRead(false)
-                .build();
+        Notification notification = notificationAddReq.toEntity();
+
         final Notification savedNotification = notificationRepository.save(notification);
 
         fcmNotificationService.sendNotificationByToken(
@@ -63,13 +55,6 @@ public class NotificationServiceImpl implements NotificationService {
         notificationRepository.markAsReadByMemberId(memberId); // 알림 전체 읽음 처리
 
         return new CustomSlice<>(
-                notifications.map(notification -> new NotificationRes(
-                        notification.getId(),
-                        notification.getTitle(),
-                        notification.getBody(),
-                        notification.getSendAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                        notification.getUrl(),
-                        notification.isRead()
-        )));
+                notifications.map(NotificationRes::new));
     }
 }
