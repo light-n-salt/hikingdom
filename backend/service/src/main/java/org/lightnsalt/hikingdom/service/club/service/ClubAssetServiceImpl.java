@@ -41,7 +41,13 @@ public class ClubAssetServiceImpl implements ClubAssetService {
 		List<ClubAsset> clubAssetList = clubAssetRepository.findAllByClubId(club.getId());
 
 		// 기본 땅 에셋 추가하기
-		ClubAsset defaultClubAsset = new ClubAsset(club, defaultAsset, null, 0, 0);
+		ClubAsset defaultClubAsset = ClubAsset.builder()
+			.club(club)
+			.asset(defaultAsset)
+			.meetup(null)
+			.rowIndex(0)
+			.colIndex(0)
+			.build();
 		clubAssetList.add(0, defaultClubAsset);
 
 		return clubAssetList.stream()
