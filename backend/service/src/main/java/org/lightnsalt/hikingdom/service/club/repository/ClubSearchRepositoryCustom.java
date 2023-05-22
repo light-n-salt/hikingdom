@@ -35,6 +35,7 @@ public class ClubSearchRepositoryCustom extends ClubSearchRepository {
 			.leftJoin(clubRanking)
 			.on(club.id.eq(clubRanking.club.id).and(clubRanking.setDate.eq(today)))
 			.where(whereClause)
+			.orderBy(clubRanking.ranking.asc())
 			.limit(pageable.getPageSize() + 1L)
 			.fetch();
 
