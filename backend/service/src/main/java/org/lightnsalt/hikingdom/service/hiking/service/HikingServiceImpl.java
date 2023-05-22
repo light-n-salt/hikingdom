@@ -162,7 +162,8 @@ public class HikingServiceImpl implements HikingService {
 					// 비동기 알림
 					eventPublisher.publishEvent(new CreateClubAssetNotificationEvent(
 						clubMemberRepository.findByClubId(club.getId()),
-						assetInfo
+						assetInfo,
+						club.getId()
 					));
 				} else {
 					// 이미 완등한 사용자가 한 명 이상이여서 에셋이 이미 발급된 경우 PASS
