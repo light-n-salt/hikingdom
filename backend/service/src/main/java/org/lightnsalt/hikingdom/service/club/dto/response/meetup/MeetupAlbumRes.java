@@ -3,7 +3,6 @@ package org.lightnsalt.hikingdom.service.club.dto.response.meetup;
 import java.time.format.DateTimeFormatter;
 
 import org.lightnsalt.hikingdom.domain.entity.club.meetup.MeetupAlbum;
-import org.lightnsalt.hikingdom.domain.entity.member.Member;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,12 +22,12 @@ public class MeetupAlbumRes {
 	@JsonProperty("isOwner")
 	private boolean isOwner;
 
-	public MeetupAlbumRes(MeetupAlbum meetupAlbum, Member member) {
+	public MeetupAlbumRes(MeetupAlbum meetupAlbum, Long memberId) {
 		this.photoId = meetupAlbum.getId();
-		this.isOwner = meetupAlbum.getMember().getId().equals(member.getId());
+		this.isOwner = meetupAlbum.getMember().getId().equals(memberId);
 		this.imgUrl = meetupAlbum.getImgUrl();
-		this.profileUrl = member.getProfileUrl();
-		this.nickname = member.getNickname();
+		this.profileUrl = meetupAlbum.getMember().getProfileUrl();
+		this.nickname = meetupAlbum.getMember().getNickname();
 		this.createdAt = meetupAlbum.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 	}
 }

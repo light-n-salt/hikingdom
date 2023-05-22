@@ -32,22 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MeetupAlbumController {
 
-	/*
-	- 컨트롤러 클래스 안에서 메서드 명을 작성 할 때는 아래와 같은 접미사를 붙인다.
-
-		orderList() – 목록 조회 유형의 서비스
-
-		orderDetails() – 단 건 상세 조회 유형의 controller 메서드
-
-		orderSave() – 등록/수정/삭제 가 동시에 일어나는 유형의 controller 메서드
-
-		orderAdd() – 등록만 하는 유형의 controller 메서드
-
-		orderModify() – 수정만 하는 유형의 controller 메서드
-
-		orderRemove() – 삭제만 하는 유형의 controller 메서드
-	* */
-
 	private final MeetupAlbumService meetupAlbumService;
 
 	@PostMapping("")
