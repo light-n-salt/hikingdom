@@ -24,7 +24,7 @@ public interface MemberManagementService {
 
 	String changeProfileImage(String email, MultipartFile photo);
 
-	MemberProfileRes findProfile(String nickname, Pageable pageable);
+	MemberProfileRes findProfile(String email, String nickname, Pageable pageable);
 
 	List<MemberRequestClubRes> findRequestClub(String email);
 }

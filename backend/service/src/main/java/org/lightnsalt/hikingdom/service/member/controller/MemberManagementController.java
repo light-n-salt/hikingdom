@@ -103,10 +103,9 @@ public class MemberManagementController {
 	}
 
 	@GetMapping("{nickname}")
-	public ResponseEntity<CustomResponseBody> profileDetail(@PathVariable String nickname,
-		@PageableDefault(value = 3) Pageable pageable) {
-
-		MemberProfileRes result = memberManagementService.findProfile(nickname, pageable);
+	public ResponseEntity<CustomResponseBody> profileDetail(Authentication authentication,
+		@PathVariable String nickname, @PageableDefault(value = 3) Pageable pageable) {
+		MemberProfileRes result = memberManagementService.findProfile(authentication.getName(), nickname, pageable);
 		return new ResponseEntity<>(BaseResponseBody.of("회원 프로필 조회에 성공했습니다", result), HttpStatus.OK);
 	}
 

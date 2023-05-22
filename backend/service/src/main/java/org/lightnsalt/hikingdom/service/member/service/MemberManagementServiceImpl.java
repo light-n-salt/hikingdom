@@ -34,6 +34,7 @@ import org.lightnsalt.hikingdom.service.member.dto.response.MemberRequestClubRes
 import org.lightnsalt.hikingdom.service.member.repository.MemberFcmTokenRepository;
 import org.lightnsalt.hikingdom.service.member.repository.MemberHikingStatisticRepository;
 import org.lightnsalt.hikingdom.service.member.repository.MemberRepository;
+import org.lightnsalt.hikingdom.service.notification.repository.NotificationRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,7 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	private final MeetupMemberRepository meetupMemberRepository;
 	private final MemberRepository memberRepository;
 	private final MemberFcmTokenRepository memberFcmTokenRepository;
+	private final NotificationRepository notificationRepository;
 
 	private final RestTemplate restTemplate;
 
@@ -230,7 +232,7 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 
 	@Transactional
 	@Override
-	public MemberProfileRes findProfile(String nickname, Pageable pageable) {
+	public MemberProfileRes findProfile(String email, String nickname, Pageable pageable) {
 		// 회원정보 가져오기
 		final Member member = memberRepository.findByNickname(nickname)
 			.orElseThrow(() -> new GlobalException(ErrorCode.MEMBER_NOT_FOUND));
@@ -244,9 +246,15 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		List<HikingRecordRes> hikingRecordResList = memberHikingList.stream()
 			.map(HikingRecordRes::new)
 			.collect(Collectors.toList());
+		
+		// 본인일 경우, 안 읽은 알림 개수 리턴
+		Integer unreadNotificationCount = null;
+		if (email.equals(member.getEmail())) {
+			unreadNotificationCount = notificationRepository.countAllByMemberIdAndIsRead(member.getId(), false);
+		}
 
 		// dto에 담아 리턴
-		return new MemberProfileRes(member, memberHikingStatistic, hikingRecordResList);
+		return new MemberProfileRes(member, memberHikingStatistic, hikingRecordResList, unreadNotificationCount);
 	}
 
 	@Transactional
